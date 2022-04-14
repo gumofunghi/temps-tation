@@ -24,7 +24,7 @@ const Login = () => {
   let handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      let res = await fetch('http://localhost:8080/j_security_check', {
+      let res = await fetch('https://5da3fce3-a2d6-4b5c-9350-65458ea03ea3.mock.pstmn.io/login', {
         mode: 'no-cors',
         method: 'POST',
         body: JSON.stringify({
