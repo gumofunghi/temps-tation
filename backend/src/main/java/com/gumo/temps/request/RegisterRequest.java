@@ -15,7 +15,7 @@ public class RegisterRequest {
 
     private Set<String> role;
 
-    private int is_verified;
+    private int verified;
 
     public String getUsername() {
         return username;
@@ -41,12 +41,12 @@ public class RegisterRequest {
         this.role = role;
     }
 
-    public int getIs_verified() {
-        return is_verified;
+    public int getVerified() {
+        return verified;
     }
 
-    public void setIs_verified(int is_verified) {
-        this.is_verified = is_verified;
+    public void setVerified(int verified) {
+        this.verified = verified;
     }
 
     public String getPassword() {

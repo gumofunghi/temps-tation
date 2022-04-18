@@ -13,6 +13,9 @@ public class Role {
     @Column(length = 20)
     private  RoleEnum name;
 
+    public Role() {
+    }
+
     public Role(RoleEnum role_name){
         this.name = role_name;
     }

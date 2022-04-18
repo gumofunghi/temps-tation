@@ -26,18 +26,18 @@ public class User {
     private String email;
     @Size(max = 120)
     private String password;
-    private Integer is_verified;
+    private Integer verified;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
                 joinColumns = @JoinColumn(name = "user_id"),
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String username, String email, String password, int is_verified) {
+    public User(String username, String email, String password, int verified) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.is_verified = is_verified;
+        this.verified = verified;
     }
 
     public Long getId() {
@@ -80,12 +80,12 @@ public class User {
         this.roles = roles;
     }
 
-    public Integer getIs_verified() {
-        return is_verified;
+    public Integer getVerified() {
+        return verified;
     }
 
-    public void setIs_verified(Integer is_verified) {
-        this.is_verified = is_verified;
+    public void setVerified(Integer is_verified) {
+        this.verified = is_verified;
     }
 
 }
