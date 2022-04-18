@@ -129,6 +129,10 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    npm install
    ```
+3. Build frontend 
+   ```sh
+   npm run build
+   ```
 
 #### Back End
 
@@ -196,7 +200,7 @@ Project Link: [https://github.com/gumofunghi/temps-tation](https://github.com/gu
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [Spring Boot, Spring Security, PostgreSQL: JWT Authentication example by BezKoder](https://www.bezkoder.com/spring-boot-security-postgresql-jwt-authentication/)
+* [Various tutorials from Bezkoder](https://www.bezkoder.com/)
 * []()
 * []()
 

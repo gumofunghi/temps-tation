@@ -1,12 +1,18 @@
 package com.gumo.temps.security;
 
+import com.gumo.temps.security.jwt.AuthEntryPointJwt;
+import com.gumo.temps.security.jwt.AuthTokenFilter;
+import com.gumo.temps.security.service.UserDetailsServiceImplementation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -17,38 +23,41 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 )
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    UserDetailsServiceImplementation userDetailsService;
+
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandler;
+
+    @Bean
+    public AuthTokenFilter authTokenFilter() {
+        return new AuthTokenFilter();
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception{
-        //authentication manager
-        auth.inMemoryAuthentication()
-            .withUser("user1")
-            .password(passwordEncoder().encode("user1Pass"))
-            .roles("USER")
-            .and()
-            .withUser("user2")
-            .password(passwordEncoder().encode("user2Pass"))
-            .roles("USER")
-            .and()
-            .withUser("admin")
-            .password(passwordEncoder().encode("adminPass"))
-            .roles("ADMIN");
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception{
         //http builder config for authorise requests
         http.cors().and().csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+            .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/").hasAnyRole()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/#").permitAll()
                 .anyRequest().authenticated()
-            .and()
-                .formLogin()
-                .loginPage("/login.html")
-                .loginProcessingUrl("/login_attempt")
-                .defaultSuccessUrl("/homepage.html", true)
-                .failureUrl("/login.html?error=true")
             .and()
                 .logout()
                 .logoutUrl("/logout_attempt")

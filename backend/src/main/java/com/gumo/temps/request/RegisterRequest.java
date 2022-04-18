@@ -15,7 +15,51 @@ public class RegisterRequest {
 
     private Set<String> role;
 
+    private int is_verified;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<String> getRole() {
+        return role;
+    }
+
+    public void setRole(Set<String> role) {
+        this.role = role;
+    }
+
+    public int getIs_verified() {
+        return is_verified;
+    }
+
+    public void setIs_verified(int is_verified) {
+        this.is_verified = is_verified;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
+
+
 }
