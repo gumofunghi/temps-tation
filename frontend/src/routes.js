@@ -52,7 +52,7 @@ const UploadData = React.lazy(() => import('./views/pages/upload-data/upload-dat
 // const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
+  { path: '/', exact: true, name: 'Login' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/upload-data', name: 'UploadData', element: UploadData },
   // { path: '/theme', name: 'Theme', element: Colors, exact: true },
