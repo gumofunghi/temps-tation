@@ -16,7 +16,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cibZalando, cilLockLocked, cilUser } from '@coreui/icons'
 import { useState } from 'react'
-import AuthService from 'src/services/auth-service'
+import AuthService from 'src/services/auth.service'
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -39,7 +39,7 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm method="POST" action="http://localhost:8080/j_security_check">
+                  <CForm onSubmit={handleSubmit}>
                     <h1>Login</h1>
                     <p className="text-medium-emphasis">Sign In to your account</p>
                     <CInputGroup className="mb-3">
@@ -47,7 +47,6 @@ const Login = () => {
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
                       <CFormInput
-                        name="j_username"
                         placeholder="Username"
                         autoComplete="username"
                         value={username}
@@ -59,7 +58,6 @@ const Login = () => {
                         <CIcon icon={cilLockLocked} />
                       </CInputGroupText>
                       <CFormInput
-                        name="j_password"
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"

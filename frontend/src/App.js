@@ -16,7 +16,7 @@ const Login = React.lazy(() => import('./views/pages/login/Login'))
 const Register = React.lazy(() => import('./views/pages/register/Register'))
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
-const UploadData = React.lazy(() => import('./views/pages/upload-data/upload-data.js'))
+const UploadData = React.lazy(() => import('./views/pages/upload-file/upload-file.js'))
 
 class App extends Component {
   render() {
