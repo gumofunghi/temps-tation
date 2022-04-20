@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>prediction_model</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <dl4j-master.version>1.0.0-M2</dl4j-master.version>
+    </properties>
+
+    <dependencies>
+    <!-- deeplearning4j-core: contains main functionality and neural networks -->
+    <dependency>
+        <groupId>org.deeplearning4j</groupId>
+        <artifactId>deeplearning4j-core</artifactId>
+        <version>${dl4j-master.version}</version>
+    </dependency>
+
+    <!--
+    ND4J backend: every project needs one of these. The backend defines the hardware on which network training
+    will occur. "nd4j-native-platform" is for CPUs only (for running on all operating systems).
+    -->
+    <dependency>
+        <groupId>org.nd4j</groupId>
+        <artifactId>nd4j-native</artifactId>
+        <version>${dl4j-master.version}</version>
+    </dependency>
+
+    </dependencies>
+
+</project>
