@@ -16,6 +16,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cibZalando, cilLockLocked, cilUser } from '@coreui/icons'
 import { useState } from 'react'
+import AuthService from 'src/services/auth-service'
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -24,25 +25,7 @@ const Login = () => {
   let handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      let res = await fetch('https://5da3fce3-a2d6-4b5c-9350-65458ea03ea3.mock.pstmn.io/login', {
-        mode: 'no-cors',
-        method: 'POST',
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-      })
-
-      console.log(res)
-      // let response = await res.json()
-      // //check response from back end
-      // if (response.status === 200) {
-      //   setUsername('')
-      //   setPassword('')
-      //   console.log('success')
-      // } else {
-      //   console.log(response)
-      // }
+      AuthService.login(username, password)
     } catch (error) {
       console.log(error)
     }
