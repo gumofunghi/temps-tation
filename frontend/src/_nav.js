@@ -29,12 +29,12 @@ const _nav = [
   //   component: CNavTitle,
   //   name: 'Theme',
   // },
-  // {
-  //   component: CNavItem,
-  //   name: 'Colors',
-  //   to: '/theme/colors',
-  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  // },
+  {
+    component: CNavItem,
+    name: 'Data',
+    to: '/upload-data',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
   // {
   //   component: CNavItem,
   //   name: 'Typography',
