@@ -50,19 +50,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //http builder config for authorise requests
         http
                 .cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-            .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
+//                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+//            .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//            .and()
+//                .authorizeRequests()
+//                .antMatchers("/api/auth/**").permitAll()
+//                .antMatchers("/api/test/**").permitAll()
+//                .antMatchers("/loginPage").permitAll()
+//                .anyRequest().authenticated()
+//            .and()
+//                .logout()
+//                .logoutUrl("/logout_attempt")
+//                .deleteCookies("JSESSIONID");
+                .requestCache().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
-                .antMatchers("/login").permitAll()
-                .anyRequest().authenticated()
-            .and()
-                .logout()
-                .logoutUrl("/logout_attempt")
-                .deleteCookies("JSESSIONID");
+                .antMatchers("/").authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/api/auth/loginPage")
+                .loginProcessingUrl("/api/auth/user_login")
+                .and()
+                .logout();
     }
 
     @Bean

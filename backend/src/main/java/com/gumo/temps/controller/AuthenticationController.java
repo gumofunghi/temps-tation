@@ -21,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -109,5 +110,12 @@ public class AuthenticationController {
         user.setRoles(roles);
         userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("Successfully registered."));
+    }
+
+    @GetMapping("/loginPage")
+    public ModelAndView loginPage(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/index.html");
+        return modelAndView;
     }
 }
