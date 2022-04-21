@@ -7,33 +7,56 @@ import javax.persistence.*;
 public class TemperatureData {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
     @Column(name = "deviceId")
     private String deviceId;
 
-    @Column(name = "category")
-    private int category;
-
     @Column(name = "time")
     private long time;
 
-    //2 empty columns reserved
-    @Column(name = "reserved1")
-    private String reserved1;
+    //combine temp in int and temp in double
+    @Column(name = "temperature")
+    private double temperature;
 
-    @Column(name = "reserved2")
-    private String reserved2;
+    public TemperatureData(long id, String deviceId, long time, double temperature) {
+        this.id = id;
+        this.deviceId = deviceId;
+        this.time = time;
+        this.temperature = temperature;
+    }
 
-    //temp in int
-    @Column(name = "temperatureI")
-    private int temperatureI;
+    public long getId() {
+        return id;
+    }
 
-    //temp in double
-    @Column(name = "temperatureD")
-    private double temperatureD;
+    public void setId(long id) {
+        this.id = id;
+    }
 
+    public String getDeviceId() {
+        return deviceId;
+    }
 
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
 
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
 }
