@@ -4,11 +4,11 @@ class UploadFilesService {
   upload(file, onUploadProgress) {
     let formData = new FormData()
     formData.append('file', file)
-    return Axios.post('/upload_file', formData, {
+    return Axios.post('http://localhost:8080/upload_file', formData, {
       header: {
         'Content-Type': 'multipart/form-data',
       },
-      onUploadProgress,
+      // onUploadProgress,
     })
   }
   getFiles() {
