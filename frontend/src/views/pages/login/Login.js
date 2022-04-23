@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -12,23 +12,47 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CSpinner,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cibZalando, cilLockLocked, cilUser } from '@coreui/icons'
-import { useState } from 'react'
 import AuthService from 'src/services/auth.service'
 
 const Login = () => {
+  let navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState('')
+
+  const onChangeUsername = (e) => {
+    const username = e.target.value
+    setUsername(username)
+  }
+  const onChangePassword = (e) => {
+    const password = e.target.value
+    setPassword(password)
+  }
 
   let handleSubmit = async (e) => {
     e.preventDefault()
-    try {
-      AuthService.login(username, password)
-    } catch (error) {
-      console.log(error)
-    }
+    setMessage('')
+    setLoading(true)
+
+    AuthService.login(username, password).then(
+      () => {
+        navigate('/dashboard')
+        window.location.reload()
+      },
+      (error) => {
+        const resMessage =
+          (error.response && error.response.data && error.response.data.message) ||
+          error.message ||
+          error.toString()
+        setLoading(false)
+        setMessage(resMessage)
+      },
+    )
   }
 
   return (
@@ -50,7 +74,7 @@ const Login = () => {
                         placeholder="Username"
                         autoComplete="username"
                         value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        onChange={onChangeUsername}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
@@ -62,13 +86,14 @@ const Login = () => {
                         placeholder="Password"
                         autoComplete="current-password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={onChangePassword}
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4" type="submit">
-                          Login
+                        <CButton color="primary" className="px-4" type="submit" disabled={loading}>
+                          <span>Login</span>
+                          {loading && <CSpinner size="sm" color="light" />}
                         </CButton>
                       </CCol>
                       <CCol xs={6} className="text-right">

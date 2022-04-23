@@ -55,7 +55,7 @@ const routes = [
   { path: '/', exact: true, name: 'Login' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/upload-data', name: 'UploadData', element: UploadData },
-  // { path: '/theme', name: 'Theme', element: Colors, exact: true },
+  { path: '/login', name: 'Login', exact: true },
   // { path: '/theme/colors', name: 'Colors', element: Colors },
   // { path: '/theme/typography', name: 'Typography', element: Typography },
   // { path: '/base', name: 'Base', element: Cards, exact: true },
