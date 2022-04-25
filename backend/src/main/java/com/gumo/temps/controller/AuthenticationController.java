@@ -139,11 +139,11 @@ public class AuthenticationController {
     @RequestMapping(value = "/confirm_email", method= {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<?> confirmUserEmail(@RequestParam("token")String confirmationToken){
 
-        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+        ConfirmationToken token = confirmationTokenRepository.findByToken(confirmationToken);
 
         if(token != null)
         {
-            User user = userRepository.findByEmailIdIgnoreCase(token.getUser().getEmail());
+            User user = userRepository.findByEmail(token.getUser().getEmail());
             user.setVerified(1);
             userRepository.save(user);
         }

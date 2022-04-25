@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationToken, Long> {
 //    @Query(value = "Select")
-    ConfirmationToken findByConfirmationToken(String token);
+    ConfirmationToken findByToken(String token);
 }
