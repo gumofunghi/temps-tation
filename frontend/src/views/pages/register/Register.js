@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useRef } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -14,38 +14,56 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
-import { useState } from 'react'
+import AuthService from 'src/services/auth.service'
 
 const Register = () => {
+  let navigate = useNavigate()
+  const form = useRef()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [passwordRepeat, setPasswordRepeat] = useState('')
   const [email, setEmail] = useState('')
 
+  const onChangeUsername = (e) => {
+    const username = e.target.value
+    setUsername(username)
+  }
+
+  const onChangeEmail = (e) => {
+    const email = e.target.value
+    setEmail(email)
+  }
+
+  const onChangePassword = (e) => {
+    const password = e.target.value
+    setPassword(password)
+  }
+
+  const onChangePasswordRepeat = (e) => {
+    const passwordRepeat = e.target.value
+    setPasswordRepeat(passwordRepeat)
+  }
+
   let handleSubmit = async (e) => {
     e.preventDefault()
-    try {
-      let res = await fetch('https://5da3fce3-a2d6-4b5c-9350-65458ea03ea3.mock.pstmn.io/register', {
-        method: 'POST',
-        body: JSON.stringify({
-          username: username,
-          password: password,
-          email: email,
-        }),
-      })
-      let response = await res.json()
-      if (response.status === 200) {
+    AuthService.register(username, email, password).then(
+      (response) => {
         setUsername('')
         setPassword('')
         setPasswordRepeat('')
         setEmail('')
-        console.log('success')
-      } else {
+        navigate('/email_confirmation')
+        window.location.reload()
         console.log(response)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      },
+      (error) => {
+        const resMessage =
+          (error.response && error.response.data && error.response.data.message) ||
+          error.message ||
+          error.toString()
+        console.log(resMessage)
+      },
+    )
   }
 
   return (
@@ -65,7 +83,7 @@ const Register = () => {
                       placeholder="Username"
                       autoComplete="username"
                       value={username}
-                      onChange={(e) => setUsername(e.target.value)}
+                      onChange={onChangeUsername}
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
@@ -74,7 +92,7 @@ const Register = () => {
                       placeholder="Email"
                       autoComplete="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={onChangeEmail}
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
@@ -86,7 +104,7 @@ const Register = () => {
                       placeholder="Password"
                       autoComplete="new-password"
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={onChangePassword}
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-4">
@@ -98,7 +116,7 @@ const Register = () => {
                       placeholder="Repeat password"
                       autoComplete="new-password"
                       value={passwordRepeat}
-                      onChange={(e) => setPasswordRepeat(e.target.value)}
+                      onChange={onChangePasswordRepeat}
                     />
                   </CInputGroup>
                   <div className="d-grid">

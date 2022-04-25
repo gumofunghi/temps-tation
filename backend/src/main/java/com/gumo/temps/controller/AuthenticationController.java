@@ -1,8 +1,10 @@
 package com.gumo.temps.controller;
 
+import com.gumo.temps.model.ConfirmationToken;
 import com.gumo.temps.model.Role;
 import com.gumo.temps.model.RoleEnum;
 import com.gumo.temps.model.User;
+import com.gumo.temps.repository.ConfirmationTokenRepository;
 import com.gumo.temps.repository.RoleRepository;
 import com.gumo.temps.repository.UserRepository;
 import com.gumo.temps.request.LoginRequest;
@@ -11,9 +13,11 @@ import com.gumo.temps.response.JwtResponse;
 import com.gumo.temps.response.MessageResponse;
 import com.gumo.temps.security.jwt.JwtUtils;
 import com.gumo.temps.security.service.UserDetailsImplementation;
+import com.gumo.temps.service.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -40,6 +44,10 @@ public class AuthenticationController {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    ConfirmationTokenRepository confirmationTokenRepository;
+    @Autowired
+    EmailSenderService emailSenderService;
     @Autowired
     PasswordEncoder encoder;
     @Autowired
@@ -109,13 +117,45 @@ public class AuthenticationController {
 
         user.setRoles(roles);
         userRepository.save(user);
+
+        //email verification token
+        ConfirmationToken confirmationToken = new ConfirmationToken(user);
+        confirmationTokenRepository.save(confirmationToken);
+
+        //send email
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("Email Verification from Temps-tation");
+        mailMessage.setFrom("hello@tempstation.com");
+        mailMessage.setText("Click here to verify your account: " +
+                "http://localhost:8080/confirm-email?token=" +
+                confirmationToken.getToken());
+
+        emailSenderService.sendEmail((mailMessage));
+
         return ResponseEntity.ok(new MessageResponse("Successfully registered."));
     }
 
-    @GetMapping("/loginPage")
-    public ModelAndView loginPage(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/index.html");
-        return modelAndView;
+    @RequestMapping(value = "/confirm_email", method= {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<?> confirmUserEmail(@RequestParam("token")String confirmationToken){
+
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if(token != null)
+        {
+            User user = userRepository.findByEmailIdIgnoreCase(token.getUser().getEmail());
+            user.setVerified(1);
+            userRepository.save(user);
+        }
+        else
+        {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("This link is invalid."));
+        }
+
+        return ResponseEntity.ok(new MessageResponse("Successfully confirm email."));
     }
+
+
 }
