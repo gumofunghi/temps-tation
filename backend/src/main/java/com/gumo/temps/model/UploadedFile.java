@@ -1,5 +1,7 @@
 package com.gumo.temps.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,9 +9,10 @@ import javax.persistence.*;
 public class UploadedFile {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name="id")
-    private long id;
+    private String id;
 
     @Column(name="name")
     private String name;
@@ -27,11 +30,11 @@ public class UploadedFile {
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

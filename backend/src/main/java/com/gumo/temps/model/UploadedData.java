@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "temperature_data")
-public class TemperatureData {
+public class UploadedData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class TemperatureData {
     @Column(name = "temperature")
     private double temperature;
 
-    public TemperatureData(long id, String deviceId, long time, double temperature) {
+    public UploadedData(long id, String deviceId, long time, double temperature) {
         this.id = id;
         this.deviceId = deviceId;
         this.time = time;
