@@ -22,7 +22,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+<!-- [![LinkedIn][linkedin-shield]][linkedin-url] -->
 
 
 
@@ -33,7 +33,7 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a> -->
 
-<h3 align="center">Temps-tation</h3>
+<h1 align="center">Temps-tation</h1>
 
   <!-- <p align="center">
     project_description
@@ -73,7 +73,7 @@
     <!-- <li><a href="#contributing">Contributing</a></li> -->
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <!-- <li><a href="#acknowledgments">Acknowledgments</a></li> -->
   </ol>
 </details>
 
@@ -84,7 +84,7 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-In progress
+This is a web application that provide users with functions such as temperature data visualization and temperature prediction.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -105,8 +105,7 @@ In progress
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To run this project locally, you may follow the steps below.
 
 ### Prerequisites
 
@@ -124,7 +123,7 @@ To get a local copy up and running follow these simple example steps.
 
 #### Front End
 
-1. Navigate to /temps-frontend
+1. Navigate to frontend
 2. Install NPM packages
    ```sh
    npm install
@@ -136,7 +135,8 @@ To get a local copy up and running follow these simple example steps.
 
 #### Back End
 
-In progress
+1. Navigate to backend
+2. Run TempsTationApplication.java
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -146,7 +146,11 @@ In progress
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-In progress
+1. User can upload temperature data in .csv format and a line chart which visualize the data will be rendered.
+
+2. User can filter the data accordingly and export it to .csv file.
+
+3. A prediction of temperature can be done according to the uploaded data.
 
 <!-- _For more examples, please refer to the [Documentation](https://example.com)_ -->
 
@@ -157,14 +161,13 @@ In progress
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] User Authentication
-  - [ ] User Register
-  - [ ] User Login
+- [/] User Authentication
+  - [/] User Register
+  - [/] User Login
 - [ ] Data Management
-  - [ ] Allow upload of CSV file
-  - [ ] Allow input raw data
+  - [/] Allow upload of CSV file
 - [ ] Temperature Visualisation
-  - [ ] Charts
+  - [/] Charts
   - [ ] Table
   - [ ] Filter
   - [ ] Export to CSV
@@ -172,7 +175,7 @@ In progress
   - [ ] Import feature
   - [ ] Model Training
 
-See the [open issues](https://github.com/gumofunghi/temps-tation/issues) for a full list of proposed features (and known issues).
+<!-- See the [open issues](https://github.com/gumofunghi/temps-tation/issues) for a full list of proposed features (and known issues). -->
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -197,12 +200,10 @@ Project Link: [https://github.com/gumofunghi/temps-tation](https://github.com/gu
 
 
 
-<!-- ACKNOWLEDGMENTS -->
+<!-- ACKNOWLEDGMENTS
 ## Acknowledgments
 
-* [Various tutorials from Bezkoder](https://www.bezkoder.com/)
-* []()
-* []()
+*  -->
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
